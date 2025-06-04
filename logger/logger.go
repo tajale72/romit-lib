@@ -1,4 +1,4 @@
-package romit
+package logger
 
 import (
 	"log"
@@ -19,9 +19,9 @@ func NewRomitLogger() *RomitLogger {
 }
 
 func (l *RomitLogger) LogInfo(message string) {
-	l.infoLogger.Println(message)
+	l.infoLogger.Output(2, message)
 }
 
 func (l *RomitLogger) LogWarning(message string) {
-	l.warnLogger.Println(message)
+	l.warnLogger.Output(2, message)
 }
