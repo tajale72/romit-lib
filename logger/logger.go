@@ -1,4 +1,4 @@
-package logger
+package romit
 
 import (
 	"log"
@@ -11,9 +11,10 @@ type RomitLogger struct {
 }
 
 func NewRomitLogger() *RomitLogger {
+	flags := log.Ldate | log.Ltime | log.Lshortfile
 	return &RomitLogger{
-		infoLogger: log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
-		warnLogger: log.New(os.Stdout, "WARN: ", log.Ldate|log.Ltime|log.Lshortfile),
+		infoLogger: log.New(os.Stdout, "INFO: ", flags),
+		warnLogger: log.New(os.Stdout, "WARN: ", flags),
 	}
 }
 
