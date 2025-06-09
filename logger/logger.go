@@ -13,8 +13,18 @@ type RomitLogger struct {
 	traceLogger *log.Logger
 }
 
-func NewRomitLogger() *RomitLogger {
-	flags := log.Ldate | log.Ltime | log.Lshortfile
+type RomitLoggerInterface interface {
+	LogInfo(message string)
+	LogWarning(message string)
+	LogError(message string)
+	LogFatal(message string)
+	LogPanic(message string)
+	LogDebug(message string)
+	LogTrace(message string)
+}
+
+func NewRomitLogger() RomitLoggerInterface {
+	flags := log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile
 	return &RomitLogger{
 		infoLogger:  log.New(os.Stdout, "INFO: ", flags),
 		warnLogger:  log.New(os.Stdout, "WARN: ", flags),
@@ -39,7 +49,7 @@ func (l *RomitLogger) LogFatal(message string) {
 }
 
 func (l *RomitLogger) LogPanic(message string) {
-	l.errorLogger.Panic(message)
+	l.errorLogger.Output(2, message)
 }
 
 func (l *RomitLogger) LogDebug(message string) {
